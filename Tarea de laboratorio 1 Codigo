@@ -1,0 +1,120 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPbVuTdOHswkm4sUqpYcsQw",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/nauxnlk-alt/Curso/blob/main/Tarea%20de%20laboratorio%201%20Codigo\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 3,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GQrylMJErWHV",
+        "outputId": "ed8d21f5-5fb8-4ce4-a263-a4a3a956cc70"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "BUSQUEDA LINEAL\n",
+            "Posicion: 175431\n",
+            "Comparaciones: 175432\n",
+            "Tiempo: 0.022250232000033066 segundos\n",
+            "\n",
+            "BUSQUEDA BINARIA\n",
+            "Posicion: 175431\n",
+            "Comparaciones: 15\n",
+            "Tiempo: 0.00014659999987998162 segundos\n"
+          ]
+        }
+      ],
+      "source": [
+        "import time\n",
+        "\n",
+        "def busqueda_lineal(lista, objetivo):\n",
+        "    comparaciones = 0\n",
+        "    for i in range(len(lista)):\n",
+        "        comparaciones += 1\n",
+        "        if lista[i] == objetivo:\n",
+        "            return i, comparaciones\n",
+        "    return -1, comparaciones\n",
+        "\n",
+        "def busqueda_binaria(lista, objetivo):\n",
+        "    izquierda = 0\n",
+        "    derecha = len(lista) - 1\n",
+        "    comparaciones = 0\n",
+        "\n",
+        "    while izquierda <= derecha:\n",
+        "        medio = (izquierda + derecha) // 2\n",
+        "        comparaciones += 1\n",
+        "\n",
+        "        if lista[medio] == objetivo:\n",
+        "            return medio, comparaciones\n",
+        "        elif lista[medio] < objetivo:\n",
+        "            izquierda = medio + 1\n",
+        "        else:\n",
+        "            derecha = medio - 1\n",
+        "\n",
+        "    return -1, comparaciones\n",
+        "\n",
+        "# Datos de prueba\n",
+        "datos = list(range(1, 200001))\n",
+        "objetivo = 175432\n",
+        "\n",
+        "# Búsqueda lineal\n",
+        "inicio = time.perf_counter()\n",
+        "pos1, comp1 = busqueda_lineal(datos, objetivo)\n",
+        "tiempo1 = time.perf_counter() - inicio\n",
+        "\n",
+        "# Búsqueda binaria\n",
+        "inicio = time.perf_counter()\n",
+        "pos2, comp2 = busqueda_binaria(datos, objetivo)\n",
+        "tiempo2 = time.perf_counter() - inicio\n",
+        "\n",
+        "print(\"BUSQUEDA LINEAL\")\n",
+        "print(\"Posicion:\", pos1)\n",
+        "print(\"Comparaciones:\", comp1)\n",
+        "print(\"Tiempo:\", tiempo1, \"segundos\")\n",
+        "\n",
+        "print(\"\\nBUSQUEDA BINARIA\")\n",
+        "print(\"Posicion:\", pos2)\n",
+        "print(\"Comparaciones:\", comp2)\n",
+        "print(\"Tiempo:\", tiempo2, \"segundos\")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "3Hj05sbovGVg"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
